@@ -4,21 +4,21 @@ use Countable;
 use ArrayAccess;
 use IteratorAggregate;
 use Illuminate\Support\Collection;
-use Illuminate\Support\Contracts\JsonableInterface;
-use Illuminate\Support\Contracts\ArrayableInterface;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 
-class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggregate, Countable, ArrayAccess {
-	
+class CsvReader implements Arrayable, Jsonable, IteratorAggregate, Countable, ArrayAccess {
+
 	/**
 	 * File path will be used.
-	 * 
+	 *
 	 * @var string
 	 */
 	protected $file;
 
 	/**
 	 * Results data.
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $data = array();
@@ -30,8 +30,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * The constructor.
-	 * 
-	 * @param string $file 
+	 *
+	 * @param string $file
 	 */
 	public function __construct($file)
 	{
@@ -41,9 +41,9 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Make new instance using static style.
-	 * 
-	 * @param  string $file 
-	 * @return self       
+	 *
+	 * @param  string $file
+	 * @return self
 	 */
 	public static function make($file)
 	{
@@ -52,19 +52,19 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Alias for "make" method.
-	 * 
-	 * @param  string $file 
-	 * @return self       
+	 *
+	 * @param  string $file
+	 * @return self
 	 */
 	public static function get($file)
 	{
-		return static::make($file);	
+		return static::make($file);
 	}
 
 	/**
 	 * Open the file.
-	 * 
-	 * @return self 
+	 *
+	 * @return self
 	 */
 	public function open()
 	{
@@ -75,8 +75,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Close the file.
-	 * 
-	 * @return void 
+	 *
+	 * @return void
 	 */
 	public function close()
 	{
@@ -85,8 +85,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Fetch the csv data and save that to array data.
-	 * 
-	 * @return self 
+	 *
+	 * @return self
 	 */
 	public function each()
 	{
@@ -100,7 +100,7 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Get array data.
-	 * 
+	 *
 	 * @return \Illuminate\Support\Collection
 	 */
 	public function getData()
@@ -110,8 +110,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Initialize the data.
-	 * 
-	 * @return self 
+	 *
+	 * @return self
 	 */
 	public function init()
 	{
@@ -120,8 +120,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Convert current data to array.
-	 * 
-	 * @return array 
+	 *
+	 * @return array
 	 */
 	public function toArray()
 	{
@@ -130,8 +130,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Convert current data to json.
-	 * 
-	 * @return string 
+	 *
+	 * @return string
 	 */
 	public function toJson($options = 0)
 	{
@@ -140,8 +140,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Convert current data to object.
-	 * 
-	 * @return object 
+	 *
+	 * @return object
 	 */
 	public function toObject()
 	{
@@ -150,8 +150,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Get iterator.
-	 * 
-	 * @return \Illuminate\Support\Collection 
+	 *
+	 * @return \Illuminate\Support\Collection
 	 */
 	public function getIterator()
 	{
@@ -160,8 +160,8 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * Get count of data
-	 * 
-	 * @return int 
+	 *
+	 * @return int
 	 */
 	public function count()
 	{
@@ -170,9 +170,9 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * ArrayAccess::offsetGet.
-	 * 
-	 * @param  string $key 
-	 * @return mixed      
+	 *
+	 * @param  string $key
+	 * @return mixed
 	 */
 	public function offsetGet($key)
 	{
@@ -181,9 +181,9 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * ArrayAccess::offsetExists.
-	 * 
-	 * @param  string $key 
-	 * @return boolean      
+	 *
+	 * @param  string $key
+	 * @return boolean
 	 */
 	public function offsetExists($key)
 	{
@@ -192,9 +192,9 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * ArrayAccess::offsetSet.
-	 * 
-	 * @param  string $key 
-	 * @return void      
+	 *
+	 * @param  string $key
+	 * @return void
 	 */
 	public function offsetSet($key, $value)
 	{
@@ -203,9 +203,9 @@ class CsvReader implements ArrayableInterface, JsonableInterface, IteratorAggreg
 
 	/**
 	 * ArrayAccess::offsetUnset.
-	 * 
-	 * @param  string $key 
-	 * @return void      
+	 *
+	 * @param  string $key
+	 * @return void
 	 */
 	public function offsetUnset($key)
 	{
